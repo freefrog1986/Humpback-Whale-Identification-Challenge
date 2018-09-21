@@ -112,6 +112,7 @@ def vgg16_model():
                         epochs = epochs,
                         verbose=1,
                         class_weight = class_weight_dic)
+    model.save_weights((working_path + '/vgg16_model.h5'))
     return model
 
 def writing_result_to_csv(file_name, the_model):

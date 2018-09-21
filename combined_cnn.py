@@ -71,12 +71,10 @@ def writing_result_to_csv(file_name, result):
             warnings.filterwarnings("ignore",category=DeprecationWarning)
             for image,preds in result.items():
                 image = split(image)[-1]
-                print(image,':')
                 predicted_tags = []
                 for i in map(lambda x:x[0],sorted(preds.items(), key=lambda a:a[1], reverse=True)[:5]):
                     predicted_tags.append(i)
                 predicted_tags = " ".join( predicted_tags)
-                print(predicted_tags)
                 f.write("%s,%s\n" %(image, predicted_tags))
     pass
 
@@ -88,8 +86,7 @@ def recording_score(file_name, the_score):
 
 if __name__ == '__main__':
     working_path = '/mnt/DataLab/Humpback-Whale-Identification-Challenge'
-    # working locally
-    #working_path = '/Users/freefrog/Studing/DataScience/Machine-Learning-Coursera/inputs'
+    #working_path = '/Users/freefrog/Studing/DataScience/Machine-Learning-Coursera/inputs' # working locally
     train_images = glob(working_path + "/inputs/train/*jpg")
     test_images = glob(working_path + "/inputs/test/*jpg")
     df = pd.read_csv(working_path + "/inputs/train.csv")
@@ -201,6 +198,9 @@ if __name__ == '__main__':
             print('remaining time is %s' % str(remaining_time))
         # write results to file 
         writing_result_to_csv('combined_cnn_model', result)
+        del result
+        del the_cnn_model
+        del lohe
     except Exception as e:
         with open('exception.txt','w') as f:
             f.write(str(e))

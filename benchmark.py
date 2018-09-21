@@ -2,16 +2,10 @@
 
 import numpy as np
 import pandas as pd
-import seaborn as sns
 from glob import glob
 from PIL import Image
-import matplotlib.pylab as plt
 from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelEncoder
 from sklearn.model_selection import train_test_split
-
-from subprocess import check_output
-print(check_output(["ls", "../input"]).decode("utf8"))
-
 import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
@@ -50,11 +44,12 @@ def plotImages( images_arr, n_images=4):
     plt.tight_layout()
 
 if __name__ == '__main__':
-    train_images = glob("../input/train/*jpg")
-    test_images = glob("../input/test/*jpg")
-    df = pd.read_csv("../input/train.csv")
+    working_path = '/mnt/DataLab/Humpback-Whale-Identification-Challenge'
+    train_images = glob(working_path + "/inputs/train/*jpg")
+    test_images = glob(working_path + "/inputs/test/*jpg")
+    df = pd.read_csv(working_path + "/inputs/train.csv")
 
-    df["Image"] = df["Image"].map( lambda x : "../input/train/"+x)
+    df["Image"] = df["Image"].map( lambda x :working_path +  "/inputs/train/"+x)
     ImageToLabelDict = dict( zip( df["Image"], df["Id"]))
 
     SIZE = 64
@@ -69,7 +64,7 @@ if __name__ == '__main__':
     #constructing class weights
     WeightFunction = lambda x : 1./x**0.75
     ClassLabel2Index = lambda x : lohe.le.inverse_tranform( [[x]])
-    CountDict = dict( df["Id"].value_counts())
+    CountDict = dict(pd.Series(y).value_counts())
     class_weight_dic = { lohe.le.transform( [image_name])[0] : WeightFunction(count) for image_name, count in CountDict.items()}
     del CountDict
     
@@ -99,7 +94,7 @@ if __name__ == '__main__':
     #plotImages( augmented_images)
     batch_size = 128
     num_classes = len(y_cat.toarray()[0])
-    epochs = 2
+    epochs = 9
 
     print('x_train shape:', x_train.shape)
     print(x_train.shape[0], 'train samples')
@@ -130,13 +125,14 @@ if __name__ == '__main__':
               class_weight=class_weight_dic)
 
     #K.clear_session()
-    #score = model.evaluate(x_train, y_train, verbose=0)
-    #print('Training loss: {0:.4f}\nTraining accuracy:  {1:.4f}'.format(*score))
+    score = model.evaluate(x_train, y_train, verbose=0)
+    print('Training loss of model: {0:.4f}\nTraining accuracy of model:  {1:.4f}'.format(*score))
     print('training done')
+
     import warnings
     from os.path import split
 
-    with open("sample_submission.csv","w") as f:
+    with open(working_path + "sample_submission.csv","w") as f:
         with warnings.catch_warnings():
             f.write("Image,Id\n")
             warnings.filterwarnings("ignore",category=DeprecationWarning)

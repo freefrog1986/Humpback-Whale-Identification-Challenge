@@ -1,0 +1,522 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Humpback Whale Identification}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Humpback Whale Identification
+Challenge}\label{humpback-whale-identification-challenge}
+
+    \subsection{Capstone Project}\label{capstone-project}
+
+    Bo Liu
+
+July 24st, 2018
+
+    \subsection{I. Definition}\label{i.-definition}
+
+    \subsubsection{Project Overview}\label{project-overview}
+
+    After centuries of intense whaling, recovering whale populations still
+have a hard time adapting to warming oceans and struggle to compete
+every day with the industrial fishing industry for food.
+
+To aid whale conservation efforts, scientists use photo surveillance
+systems to monitor ocean activity. They use the shape of whales' tails
+and unique markings found in footage to identify what species of whale
+they're analyzing and meticulously log whale pod dynamics and movements.
+For the past 40 years, most of this work has been done manually by
+individual scientists, leaving a huge trove of data untapped and
+underutilized.
+
+The challeng is to build an algorithm to identifying whale species in
+images. I will analyze Happy Whale's database of over 25,000 images,
+gathered from research institutions and public contributors. And I am
+excited to help open rich fields of understanding for marine mammal
+population dynamics around the globe.
+
+Happy Whale is the organization who provid this data and problem. It is
+a platform that uses image process algorithms to let anyone to submit
+their whale photo and have it automatically identified.
+
+This Chellange is originally form kaggle.com, more info can be find
+\href{https://www.kaggle.com/c/whale-categorization-playground}{here.}
+
+    \subsubsection{Problem Statement}\label{problem-statement}
+
+    We have training data contains thousands of images of humpback whale
+flukes. Individual whales have been identified by researchers and given
+an Id. The problem we are going to solve is to predict the whale Id of
+images in the test set. What makes this such a challenge is that there
+are only a few examples for each of 3,000+ whale Ids. One relevant
+potential solution is training a model of CNN to identify thoes whale
+flukes.
+
+Additionally, the problem can be quantified as follow, for an arbitrary
+image of whale flukes \(x\) (where \(x\) is the form of point series),
+and the corresponding whale Id \(y\), find out a model \(f(x)\) that can
+map \(x\) to a candidate Id \(\hat y\).
+
+The problem can be measured according to the precision at cutoff \(k\).
+
+The problem can be reproduced by checking the \href{}{challenging
+website} and public datasets of whale flukes.
+
+    \subsubsection{Metrics}\label{metrics}
+
+    We use accuracy as the metric to evaluate the performance of our model.
+
+\[accuracy(y,\hat y) = \frac{1}{n_{samples}} \sum^{n_{samples}-1}_{i=0} 1(\hat y = y)\]
+
+wher \(\hat y\) is the predicted label, \(n_{samples}\) is the number of
+samples, \(1(x)\) is the indicator function.
+
+And our final solution can be measured by the Mean Average Precision @ 5
+(MAP@5) which is provided on the official website.
+\[MAP@5 = \frac{1}{U} \sum^U_{u=1} \sum ^{min(n,5)}_{k=1} P(K)\] where
+\(U\) is the number of images, \(P(k)\) is the precision at cutoff
+\(k\), and \(n\) is the number predictions per image.
+
+    \subsection{II. Analysis}\label{ii.-analysis}
+
+    \subsubsection{Data Exploration}\label{data-exploration}
+
+    This training data contains thousands of images of humpback whale
+flukes. Individual whales have been identified by researchers and given
+an Id.
+
+There are two floders contaning training images and testing images
+separately, and one csv file to map the training data to the right Id.
+Also a template of submission file is provided.
+
+\begin{itemize}
+\tightlist
+\item
+  train - a folder containing 9850 training images of humpback whale
+  flukes.
+\item
+  test - a folder containing 15610 test images to predict the whale Id.
+\item
+  train.csv - maps the training Image to the appropriate whale Id.
+\item
+  sample\_submission.csv - a sample submission file in the correct
+  format
+\end{itemize}
+
+Whales that are not predicted to have a label identified in the training
+data should be labeled as new\_whale. Each of the images including a
+humpback whale fluke, So appropriately identifying those image are
+related to solving the problem we described before.
+
+The dataset can be obtained from kaggle website , or you can click
+\href{https://www.kaggle.com/c/whale-categorization-playground/data}{here}.
+
+The training dataset will be used to train our model, while the test
+dataset will be used to test our model and create a submission file. Our
+final results can be evaluated on MAP@5 by uploading our submission to
+the
+\href{https://www.kaggle.com/c/whale-categorization-playground/leaderboard}{official
+challenge website}.
+
+For the reason that the total size of datasets is over 700MB, so I will
+not upload the datasets with my submition of this final project.
+
+Training Images have various sizes and different color types, so I
+convert all images to gray and resize to 64x64. Figure 1 shows some of
+the traning images.
+
+    \begin{figure}
+\centering
+\includegraphics{https://github.com/freefrog1986/Humpback-Whale-Identification-Challenge/blob/master/sample_images.png?raw=true}
+\caption{image.png}
+\end{figure}
+
+Figure 1 samples of training images
+
+    \subsubsection{Exploratory
+Visualization}\label{exploratory-visualization}
+
+    The competition states that it's hard because: "there are only a few
+examples for each of 3,000+ whale ids", there are actually 4251
+categories in the training set.
+
+There appear to be too many categories to graph count by category, so
+let's instead graph the number of categories by the number of images in
+the category which is shown on figure 2.
+
+From the figure below we can see that, the number of samples in each
+category is very unbalanced.
+
+    \begin{figure}
+\centering
+\includegraphics{https://github.com/freefrog1986/Humpback-Whale-Identification-Challenge/blob/master/distribution_samples.png?raw=true}
+\caption{}
+\end{figure}
+
+Figure 2 the number of categories by the number of images in the
+category
+
+    \subsubsection{Algorithms and
+Techniques}\label{algorithms-and-techniques}
+
+    A applicable solution to the problem is training a CNN model to predict
+the Ids. The solution can be quantified as follow: Train a model
+\(f(x)\) using training data x\_train, applying the trained model
+\(f(x)\) on the test data x\_test to predict the condidate Id
+\(\hat y\).
+
+First, we will apply a shallow CNN model with 8 layers as our benchmark
+model.
+
+Then, a more complexed model will be built to try to get better
+performance. VGG16 model is a good choice which is a convolutional
+neural network model proposed by K. Simonyan and A. Zisserman from the
+University of Oxford in the paper ``Very Deep Convolutional Networks for
+Large-Scale Image Recognition''. The model achieves 92.7\% top-5 test
+accuracy in ImageNet, which is a dataset of over 14 million images
+belonging to 1000 classes.
+
+Finally, I try to using a 'combined cnn model', in which I will train
+shallow cnn models for each class and combined all those models as a
+whole to predict on testing dataset.
+
+    \subsubsection{Benchmark}\label{benchmark}
+
+    \href{https://www.kaggle.com/gimunu/data-augmentation-with-keras-into-cnn}{This
+link} provided one possible solution using a traditional CNN in keras,
+which I would like to be taking into account as a benchmark model. The
+workflow of the benchmark model is: importing the data!One hot encoding
+on the labels!Image augmentation!Building and training model !
+Predictions on test samples It is a simple CNN model containing 8
+layers. Input ! conv2D@1 ! Conv2D@2 ! MaxPooling2D@3 ! Conv2D@4 !
+MaxPooling2D@5 ! Dropout ! Flatten ! Dense@6 ! Dense@7 ! Output@8 Where
+'Input' represent input layer, 'conv2D' represent convolutional layer,
+'MaxPooling2D' represent max pooling layer, 'Dense' represent
+fully-connected layer, 'Output' represent output layer, '@n' indicate
+that this is the 'n'th layer, 'dropout' and 'flatten' represent dropout
+and flatten method separately, and they aren't considered as a layer.
+All parameters shown below: • batch size - 128 • epochs - 9 • conv2D@1 -
+number of kernals is 48, kernel size is (3, 3), strides is (1, 1),
+padding type is 'valid', activation function is 'relu'. • conv2D@2 -
+number of kernals is 48, kernel size is (3, 3), strides is (1, 1),
+padding type is 'valid', activation function is 'sigmoid'. •
+MaxPooling2D@3 - pool size is 3, 3), strides is (1, 1), padding type is
+'valid'. 2 • conv2D@4 - number of kernals is 48, kernel size is (5, 5),
+strides is (1, 1), padding type is 'valid', activation function is
+'sigmoid'. • MaxPooling2D@5 - pool size is 3, 3), strides is (1, 1),
+padding type is 'valid'. • dropout - Fraction of the input units to drop
+is 0.33. • flatten - no parameters. • Dense@6 - number of cells is 36,
+activation function is 'sigmoid'. • dropout - Fraction of the input
+units to drop is 0.33. • Dense@7 - number of cells is 36, activation
+function is 'sigmoid'. • output@8 - number of cells is equal to the
+number of unique lables, activation function is 'softmax'. • loss
+function - cross-entropy • optimizer - Adadelta. • metrics - 'accuracy'.
+This model got an accuracy of xxx on training dataset, and xxx on
+testing dataset. A script of this model is provided, name
+'benchmark.py', in the submission package.
+
+    \subsection{III. Methodology}\label{iii.-methodology}
+
+    \subsubsection{Data Preprocessing}\label{data-preprocessing}
+
+    \subsubsection{Implementation}\label{implementation}
+
+    \subsubsection{Refinement}\label{refinement}
+
+    \subsection{IV. Results}\label{iv.-results}
+
+    \subsubsection{Model Evaluation and
+Validation}\label{model-evaluation-and-validation}
+
+    \subsubsection{Justification}\label{justification}
+
+    \subsection{V. Conclusion}\label{v.-conclusion}
+
+    \subsubsection{Free-Form Visualization}\label{free-form-visualization}
+
+    \subsubsection{Reflection}\label{reflection}
+
+    \subsubsection{Improvement}\label{improvement}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
